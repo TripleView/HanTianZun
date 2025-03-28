@@ -1,0 +1,41 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:HanTianZun.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="HanTianZun.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="HanTianZun">
+
+	<Design.DataContext>
+		<!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+		<vm:MainWindowViewModel/>
+	</Design.DataContext>
+
+	<StackPanel >
+		<Button HorizontalAlignment="Stretch"  Command="{Binding AddNewItem}">新建项目</Button>
+		<ScrollViewer Width="770" Height="320">
+			<ItemsControl ItemsSource="{Binding Items }">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<StackPanel Orientation="Horizontal">
+							<Button CommandParameter="{Binding Index}" Command="{Binding $parent[ItemsControl].((vm:MainWindowViewModel)DataContext).CopyTextCommand}">复制</Button>
+							<Button CommandParameter="{Binding Index}" Command="{Binding $parent[ItemsControl].((vm:MainWindowViewModel)DataContext).PasteTextCommand}" Margin="20 0 0 0">保存</Button>
+							<Button CommandParameter="{Binding Index}" Command="{Binding $parent[ItemsControl].((vm:MainWindowViewModel)DataContext).ClearTextCommand}" Margin="20 0 20 0">清空</Button>
+							<TextBox Width="500" Height="100" AcceptsReturn="True" Text="{Binding Text }"></TextBox>
+							<Button CommandParameter="{Binding Index}" Command="{Binding $parent[ItemsControl].((vm:MainWindowViewModel)DataContext).DeleteItemCommand}" Height="50" Width="50" Margin="10 0 0 0">
+                                <Image Source="avares://HanTianZun/Assets/delete.png"></Image>
+							</Button>
+						</StackPanel>
+
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+		</ScrollViewer>
+
+	</StackPanel>
+
+</Window>
