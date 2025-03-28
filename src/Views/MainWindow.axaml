@@ -16,7 +16,7 @@
 	</Design.DataContext>
 
 	<StackPanel >
-		<Button HorizontalAlignment="Stretch"  Command="{Binding AddNewItem}">新建项目</Button>
+		<Button Margin="0 0 0 10" HorizontalContentAlignment="Center" HorizontalAlignment="Stretch"  Command="{Binding AddNewItem}">新建项目</Button>
 		<ScrollViewer Width="770" Height="320">
 			<ItemsControl ItemsSource="{Binding Items }">
 				<ItemsControl.ItemTemplate>
