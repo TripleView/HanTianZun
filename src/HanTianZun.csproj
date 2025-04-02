@@ -6,14 +6,19 @@
 		<BuiltInComInteropSupport>true</BuiltInComInteropSupport>
 		<ApplicationManifest>app.manifest</ApplicationManifest>
 		<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
-		<!--<PublishAot>true</PublishAot>
-		<RuntimeIdentifier>win-x64</RuntimeIdentifier>-->
+		<PublishAot>true</PublishAot>
+		<RuntimeIdentifier>win-x64</RuntimeIdentifier>
+		<ApplicationIcon>Assets\小助手.ico</ApplicationIcon>
 	</PropertyGroup>
 
 	<ItemGroup>
 		<Folder Include="Dto\" />
 		<Folder Include="Models\" />
 		<AvaloniaResource Include="Assets\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="Assets\小助手.ico" />
 	</ItemGroup>
 
 	<ItemGroup>
