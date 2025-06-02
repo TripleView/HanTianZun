@@ -7,7 +7,8 @@
         x:Class="HanTianZun.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/小助手.png"
-        Title="HanTianZun">
+        Title="HanTianZun"
+        Width="900">
 
 	<Design.DataContext>
 		<!-- This only sets the DataContext for the previewer in an IDE,
@@ -17,19 +18,20 @@
 
 	<StackPanel >
 		<Button Margin="0 0 0 10" HorizontalContentAlignment="Center" HorizontalAlignment="Stretch"  Command="{Binding AddNewItem}">新建项目</Button>
-		<ScrollViewer Width="770" Height="320">
+		<ScrollViewer Width="800" Height="320" Margin="20 0 0 0">
 			<ItemsControl ItemsSource="{Binding Items }">
 				<ItemsControl.ItemTemplate>
 					<DataTemplate>
 						<StackPanel Orientation="Horizontal">
-							<Button CommandParameter="{Binding Index}" Command="{Binding $parent[ItemsControl].((vm:MainWindowViewModel)DataContext).CopyTextCommand}">复制</Button>
-							<Button CommandParameter="{Binding Index}" Command="{Binding $parent[ItemsControl].((vm:MainWindowViewModel)DataContext).PasteTextCommand}" Margin="20 0 0 0">保存</Button>
-							<Button CommandParameter="{Binding Index}" Command="{Binding $parent[ItemsControl].((vm:MainWindowViewModel)DataContext).ClearTextCommand}" Margin="20 0 20 0">清空</Button>
+						
 							<TextBox Width="500" Height="100" AcceptsReturn="True" Text="{Binding Text }"></TextBox>
-							<Button CommandParameter="{Binding Index}" Command="{Binding $parent[ItemsControl].((vm:MainWindowViewModel)DataContext).DeleteItemCommand}" Height="50" Width="50" Margin="10 0 0 0">
+							<Button CommandParameter="{Binding Index}" Command="{Binding $parent[ItemsControl].((vm:MainWindowViewModel)DataContext).DeleteItemCommand}" Height="50" Width="50" Margin="20 0 0 0">
                                 <Image Source="avares://HanTianZun/Assets/delete.png"></Image>
 							</Button>
-						</StackPanel>
+                            <Button CommandParameter="{Binding Index}" Command="{Binding $parent[ItemsControl].((vm:MainWindowViewModel)DataContext).ClearTextCommand}" Margin="20 0 0 0" Background="Red">清空</Button>
+                            <Button CommandParameter="{Binding Index}" Command="{Binding $parent[ItemsControl].((vm:MainWindowViewModel)DataContext).PasteTextCommand}" Margin="20 0 0 0" Background="#2196F3">保存</Button>
+                            <Button CommandParameter="{Binding Index}" Command="{Binding $parent[ItemsControl].((vm:MainWindowViewModel)DataContext).CopyTextCommand}" Margin="20 0 0 0" Background="Green">复制</Button>
+                        </StackPanel>
 
 					</DataTemplate>
 				</ItemsControl.ItemTemplate>
