@@ -15,29 +15,51 @@
              to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
 		<vm:MainWindowViewModel/>
 	</Design.DataContext>
+	<TabControl Margin="5">
+		<TabItem Header="剪切助手">
+			<StackPanel >
+				<Button Margin="0 0 0 10" HorizontalContentAlignment="Center" HorizontalAlignment="Stretch"  Command="{Binding AddNewItem}">新建项目</Button>
+				<ScrollViewer Width="800" Height="320" Margin="20 0 0 0">
+					<ItemsControl ItemsSource="{Binding Items }">
+						<ItemsControl.ItemTemplate>
+							<DataTemplate>
+								<StackPanel Orientation="Horizontal">
 
-	<StackPanel >
-		<Button Margin="0 0 0 10" HorizontalContentAlignment="Center" HorizontalAlignment="Stretch"  Command="{Binding AddNewItem}">新建项目</Button>
-		<ScrollViewer Width="800" Height="320" Margin="20 0 0 0">
-			<ItemsControl ItemsSource="{Binding Items }">
-				<ItemsControl.ItemTemplate>
-					<DataTemplate>
-						<StackPanel Orientation="Horizontal">
-						
-							<TextBox Width="500" Height="100" AcceptsReturn="True" Text="{Binding Text }"></TextBox>
-							<Button CommandParameter="{Binding Index}" Command="{Binding $parent[ItemsControl].((vm:MainWindowViewModel)DataContext).DeleteItemCommand}" Height="50" Width="50" Margin="20 0 0 0">
-                                <Image Source="avares://HanTianZun/Assets/delete.png"></Image>
-							</Button>
-                            <Button CommandParameter="{Binding Index}" Command="{Binding $parent[ItemsControl].((vm:MainWindowViewModel)DataContext).ClearTextCommand}" Margin="20 0 0 0" Background="Red">清空</Button>
-                            <Button CommandParameter="{Binding Index}" Command="{Binding $parent[ItemsControl].((vm:MainWindowViewModel)DataContext).PasteTextCommand}" Margin="20 0 0 0" Background="#2196F3">保存</Button>
-                            <Button CommandParameter="{Binding Index}" Command="{Binding $parent[ItemsControl].((vm:MainWindowViewModel)DataContext).CopyTextCommand}" Margin="20 0 0 0" Background="Green">复制</Button>
-                        </StackPanel>
+									<TextBox Width="500" Height="100" AcceptsReturn="True" Text="{Binding Text }"></TextBox>
+									<Button CommandParameter="{Binding Index}" Command="{Binding $parent[ItemsControl].((vm:MainWindowViewModel)DataContext).DeleteItemCommand}" Height="50" Width="50" Margin="20 0 0 0">
+										<Image Source="avares://HanTianZun/Assets/delete.png"></Image>
+									</Button>
+									<Button CommandParameter="{Binding Index}" Command="{Binding $parent[ItemsControl].((vm:MainWindowViewModel)DataContext).ClearTextCommand}" Margin="20 0 0 0" Background="Red">清空</Button>
+									<Button CommandParameter="{Binding Index}" Command="{Binding $parent[ItemsControl].((vm:MainWindowViewModel)DataContext).PasteTextCommand}" Margin="20 0 0 0" Background="#2196F3">保存</Button>
+									<Button CommandParameter="{Binding Index}" Command="{Binding $parent[ItemsControl].((vm:MainWindowViewModel)DataContext).CopyTextCommand}" Margin="20 0 0 0" Background="Green">复制</Button>
+								</StackPanel>
 
-					</DataTemplate>
-				</ItemsControl.ItemTemplate>
-			</ItemsControl>
-		</ScrollViewer>
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+					</ItemsControl>
+				</ScrollViewer>
 
-	</StackPanel>
+			</StackPanel>
+		</TabItem>
+		<TabItem Header="命名助手">
+			<StackPanel >
+				<TextBox Watermark="原始句子"  HorizontalAlignment="Stretch"  Height="100" AcceptsReturn="True" Text="{Binding OriginalMethodName }"></TextBox>
+				<TextBox Watermark="转换后的句子" HorizontalAlignment="Stretch" Margin="0 50 0 20" Height="100" AcceptsReturn="True" Text="{Binding ConvertMethodName }"></TextBox>
+				<StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+					<Button HorizontalAlignment="Center" VerticalAlignment="Center" Content="大写开头"  Command="{Binding ConvertWordsToMethodNameWithCapitalLetterFunc}" Height="50"  Margin="20 0 0 0">
+
+					</Button>
+					<Button  Command="{Binding ConvertWordsToMethodNameWithLowercaseLetterFunc }" Height="50" Margin="20 0 0 0" >小写开头</Button>
+
+					<Button  Command="{Binding ClearConvertTextsFunc }" Height="50" Margin="20 0 0 0" >清空文本</Button>
+				</StackPanel>
+
+			</StackPanel>
+		</TabItem>
+		<TabItem Header="待定">
+			<TextBlock Margin="5">This is tab 3 content</TextBlock>
+		</TabItem>
+	</TabControl>
+
 
 </Window>

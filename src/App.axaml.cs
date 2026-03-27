@@ -20,7 +20,7 @@ namespace HanTianZun
                 desktop.MainWindow = new MainWindow
                 {
                     Width = 900,
-                    Height = 400,
+                    Height = 600,
                     Topmost = true,
                     DataContext = new MainWindowViewModel(),
                 };
