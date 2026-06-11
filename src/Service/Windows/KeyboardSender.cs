@@ -16,6 +16,7 @@ public class KeyboardSender
     const uint KEYEVENTF_KEYDOWN = 0x0000;
     const uint KEYEVENTF_KEYUP = 0x0002;
     const int VK_C = 0x43;
+    const byte VK_RIGHT = 0x27;
     public static void SendCtrlAndV()
     {
         // 按下Ctrl
@@ -30,6 +31,10 @@ public class KeyboardSender
         // 松开Ctrl
         keybd_event(VK_CONTROL, 0, KEYEVENTF_KEYUP, UIntPtr.Zero);
         //Thread.Sleep(50);
+        // 模拟右箭头
+        keybd_event(VK_RIGHT, 0, 0, 0);
+        keybd_event(VK_RIGHT, 0, KEYEVENTF_KEYUP, 0);
+
     }
     public static void SendCtrlAndC()
     {
