@@ -7,6 +7,7 @@ using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Threading;
 using HanTianZun.Service;
+using HanTianZun.Service.Windows;
 using ReactiveUI;
 
 namespace HanTianZun.Views
@@ -14,6 +15,8 @@ namespace HanTianZun.Views
     public partial class MainWindow : Window
     {
         private WindowsGlobalHotKeyManager hotKeyManager;
+
+        private IGlobalMouseCopyPaste globalMouseCopyPaste;
         public MainWindow()
         {
            
@@ -37,6 +40,9 @@ namespace HanTianZun.Views
                         }
                     }));
                 }));
+
+
+                globalMouseCopyPaste = new WindowsGlobalMouseCopyPaste();
             }
             
            

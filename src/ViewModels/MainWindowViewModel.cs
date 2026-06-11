@@ -56,6 +56,10 @@ namespace HanTianZun.ViewModels
         /// 清空转换前后的文本
         /// </summary>
         public ICommand ClearConvertTextsFunc { get; }
+        /// <summary>
+        /// 用鼠标复制黏贴
+        /// </summary>
+        public ICommand StartMouseCopyPasteFunc { get; }
         public MainWindowViewModel()
         {
             Items.CollectionChanged += (s, e) =>
@@ -118,6 +122,11 @@ namespace HanTianZun.ViewModels
                 this.ConvertMethodName = "";
                 this.OriginalMethodName = "";
             }));
+
+            StartMouseCopyPasteFunc = ReactiveCommand.Create(() =>
+            {
+
+            });
         }
 
         private string GetWordsStartingWithUppercase(string word)

@@ -16,18 +16,18 @@ using System.Runtime.InteropServices;
 using System.Windows.Input;
 using Avalonia.Media.Transformation;
 
-namespace HanTianZun.Service;
-public class WindowsGlobalHotKeyManager: IGlobalHotKeyManager
+namespace HanTianZun.Service.Windows;
+public class WindowsGlobalHotKeyManager : IGlobalHotKeyManager
 {
     private const int WM_HOTKEY = 0x0312;
 
     [DllImport("user32.dll")]
-    private static extern bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, uint vk);
+    private static extern bool RegisterHotKey(nint hWnd, int id, uint fsModifiers, uint vk);
 
     [DllImport("user32.dll")]
-    private static extern bool UnregisterHotKey(IntPtr hWnd, int id);
+    private static extern bool UnregisterHotKey(nint hWnd, int id);
 
-    private IntPtr _windowHandle;
+    private nint _windowHandle;
     private TopLevel topLevel;
     private Dictionary<int, Action> ActionMaps = new Dictionary<int, Action>();
 
@@ -35,7 +35,7 @@ public class WindowsGlobalHotKeyManager: IGlobalHotKeyManager
     {
         this.topLevel = topLevel;
         _windowHandle = topLevel.TryGetPlatformHandle()!.Handle;
-        Win32Properties.AddWndProcHookCallback(topLevel, ((IntPtr wnd, uint msg, IntPtr param, IntPtr lParam,
+        Win32Properties.AddWndProcHookCallback(topLevel, (nint wnd, uint msg, nint param, nint lParam,
             ref bool handled) =>
         {
             if (wnd == _windowHandle && msg == WM_HOTKEY) // WM_HOTKEY
@@ -47,17 +47,17 @@ public class WindowsGlobalHotKeyManager: IGlobalHotKeyManager
                 }
             }
             return _windowHandle;
-        }));
+        });
     }
 
     public bool RegisterHotKey(int id, Key key, KeyModifiers modifiers, Action callbackAction)
     {
-        if (ActionMaps.TryGetValue(id,out _))
+        if (ActionMaps.TryGetValue(id, out _))
         {
             throw new Exception($"Duplicate registration ID {id}");
         }
 
-    
+
         uint virtualKeyCode = (uint)KeyInterop.VirtualKeyFromKey(key);
         uint modifier = (uint)modifiers;
 
@@ -76,7 +76,7 @@ public class WindowsGlobalHotKeyManager: IGlobalHotKeyManager
 
     public void UnregisterAllHotkey()
     {
-        var ids= ActionMaps.Select(it => it.Key).ToList();
+        var ids = ActionMaps.Select(it => it.Key).ToList();
         foreach (var id in ids)
         {
             UnregisterHotkey(id);

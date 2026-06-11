@@ -56,8 +56,10 @@
 
 			</StackPanel>
 		</TabItem>
-		<TabItem Header="待定">
-			<TextBlock Margin="5">This is tab 3 content</TextBlock>
+		<TabItem Header="用鼠标复制黏贴">
+            <StackPanel Margin="20">
+                <CheckBox Command="{Binding StartMouseCopyPasteFunc }" >开启鼠标复制黏贴，鼠标滚轮按下表示复制，鼠标侧面按钮2按下表示黏贴</CheckBox>
+            </StackPanel>
 		</TabItem>
 	</TabControl>
 
