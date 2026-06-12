@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using AutoHotkey.Input;
 
 namespace HanTianZun.Service.Windows;
 
@@ -58,29 +59,34 @@ public sealed class WindowsGlobalMouseCopyPaste : IGlobalMouseCopyPaste
             var data = Marshal.PtrToStructure<MSLLHOOKSTRUCT>(lParam);
 
             // 中键按下 = 复制
-            if (msg == WM_MBUTTONDOWN)
+            if (msg == WM_MBUTTONDOWN || msg == WM_MBUTTONUP)
             {
-               KeyboardSender.SendCtrlAndC();
-                Debug.WriteLine("开始复制");
-                return 100; // 吞掉事件
+                if (msg == WM_MBUTTONDOWN)
+                {
+                    KeyboardSender.SendCtrlAndC();
+                    Debug.WriteLine("开始复制");
+                }
 
+                return (IntPtr)1; // 吞掉事件
             }
 
-            // XBUTTON2 按下 = 粘贴
-            if (msg == WM_XBUTTONDOWN)
+            // 按下和弹起都要拦截
+            if (msg == WM_XBUTTONDOWN || msg == WM_XBUTTONUP)
             {
-
-                // mouseData 高位 0x00020000 表示 XBUTTON2
                 uint button = data.mouseData >> 16 & 0xFFFF;
                 if (button == XBUTTON1)
                 {
-                    Debug.WriteLine("黏贴");
-                    KeyboardSender.SendCtrlAndV();
-                    //SendInputImpl.SendKeys("^v");
-                    return 100; // 吞掉事件
+                    if (msg == WM_XBUTTONDOWN)
+                    {
+                        Debug.WriteLine("黏贴");
+                        KeyboardSender.SendCtrlAndV();
+                    }
+
+                    return (IntPtr)1; // 吞掉事件
 
                 }
             }
+
         }
 
         return CallNextHookEx(_hookId, nCode, wParam, lParam);
@@ -91,8 +97,9 @@ public sealed class WindowsGlobalMouseCopyPaste : IGlobalMouseCopyPaste
     private const int WH_MOUSE_LL = 14;
 
     private const int WM_MBUTTONDOWN = 0x0207;
+    private const int WM_MBUTTONUP = 0x0208;
     private const int WM_XBUTTONDOWN = 0x020B;
-
+    private const int WM_XBUTTONUP = 0x020C;
     private const uint XBUTTON1 = 0x0001;
     private const uint XBUTTON2 = 0x0002;
 

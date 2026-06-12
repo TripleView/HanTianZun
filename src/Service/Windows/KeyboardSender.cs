@@ -32,8 +32,8 @@ public class KeyboardSender
         keybd_event(VK_CONTROL, 0, KEYEVENTF_KEYUP, UIntPtr.Zero);
         //Thread.Sleep(50);
         // 模拟右箭头
-        keybd_event(VK_RIGHT, 0, 0, 0);
-        keybd_event(VK_RIGHT, 0, KEYEVENTF_KEYUP, 0);
+        //keybd_event(VK_RIGHT, 0, 0, 0);
+        //keybd_event(VK_RIGHT, 0, KEYEVENTF_KEYUP, 0);
 
     }
     public static void SendCtrlAndC()
