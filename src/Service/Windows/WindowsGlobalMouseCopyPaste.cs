@@ -1,14 +1,13 @@
-ï»¿using System;
+using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using AutoHotkey.Input;
 
 namespace HanTianZun.Service.Windows;
 
 public sealed class WindowsGlobalMouseCopyPaste : IGlobalMouseCopyPaste
 {
     /// <summary>
-    /// æ˜¯å¦æ‹¦æˆªå¹¶åæ‰åŸå§‹é¼ æ ‡äº‹ä»¶ï¼ˆtrue å¯é¿å…ä¸­é”®è‡ªåŠ¨æ»šåŠ¨ç­‰é»˜è®¤è¡Œä¸ºï¼‰
+    /// ÊÇ·ñÀ¹½Ø²¢ÍÌµôÔ­Ê¼Êó±êÊÂ¼ş£¨true ¿É±ÜÃâÖĞ¼ü×Ô¶¯¹ö¶¯µÈÄ¬ÈÏĞĞÎª£©
     /// </summary>
     private readonly bool _suppressOriginal;
 
@@ -58,19 +57,19 @@ public sealed class WindowsGlobalMouseCopyPaste : IGlobalMouseCopyPaste
             int msg = wParam.ToInt32();
             var data = Marshal.PtrToStructure<MSLLHOOKSTRUCT>(lParam);
 
-            // ä¸­é”®æŒ‰ä¸‹ = å¤åˆ¶
+            // ÖĞ¼ü°´ÏÂ = ¸´ÖÆ
             if (msg == WM_MBUTTONDOWN || msg == WM_MBUTTONUP)
             {
                 if (msg == WM_MBUTTONDOWN)
                 {
                     KeyboardSender.SendCtrlAndC();
-                    Debug.WriteLine("å¼€å§‹å¤åˆ¶");
+                    Debug.WriteLine("¿ªÊ¼¸´ÖÆ");
                 }
 
-                return (IntPtr)1; // åæ‰äº‹ä»¶
+                return (IntPtr)1; // ÍÌµôÊÂ¼ş
             }
 
-            // æŒ‰ä¸‹å’Œå¼¹èµ·éƒ½è¦æ‹¦æˆª
+            // °´ÏÂºÍµ¯Æğ¶¼ÒªÀ¹½Ø
             if (msg == WM_XBUTTONDOWN || msg == WM_XBUTTONUP)
             {
                 uint button = data.mouseData >> 16 & 0xFFFF;
@@ -78,11 +77,11 @@ public sealed class WindowsGlobalMouseCopyPaste : IGlobalMouseCopyPaste
                 {
                     if (msg == WM_XBUTTONDOWN)
                     {
-                        Debug.WriteLine("é»è´´");
+                        Debug.WriteLine("ğ¤Ìù");
                         KeyboardSender.SendCtrlAndV();
                     }
 
-                    return (IntPtr)1; // åæ‰äº‹ä»¶
+                    return (IntPtr)1; // ÍÌµôÊÂ¼ş
 
                 }
             }
