@@ -73,17 +73,23 @@ public sealed class WindowsGlobalMouseCopyPaste : IGlobalMouseCopyPaste
             if (msg == WM_XBUTTONDOWN || msg == WM_XBUTTONUP)
             {
                 uint button = data.mouseData >> 16 & 0xFFFF;
-                if (button == XBUTTON1)
+                if (msg == WM_XBUTTONDOWN)
                 {
-                    if (msg == WM_XBUTTONDOWN)
+                    if (button == XBUTTON1)
                     {
+
                         Debug.WriteLine("黏贴");
                         KeyboardSender.SendCtrlAndV();
                     }
-
-                    return (IntPtr)1; // 吞掉事件
-
+                    else if (button == XBUTTON2)
+                    {
+                        Debug.WriteLine("查找");
+                        KeyboardSender.SendCtrlAndF();
+                    }
                 }
+
+                return (IntPtr)1; // 吞掉事件
+              
             }
 
         }

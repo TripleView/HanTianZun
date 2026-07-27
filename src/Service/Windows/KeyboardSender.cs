@@ -16,36 +16,34 @@ public class KeyboardSender
     const uint KEYEVENTF_KEYDOWN = 0x0000;
     const uint KEYEVENTF_KEYUP = 0x0002;
     const int VK_C = 0x43;
+    const int VK_F = 0x46;
     const byte VK_RIGHT = 0x27;
     public static void SendCtrlAndV()
     {
-        // 按下Ctrl
-        keybd_event(VK_CONTROL, 0, KEYEVENTF_KEYDOWN, UIntPtr.Zero);
-        //Thread.Sleep(50);
-        // 按下V
-        keybd_event(VK_V, 0, KEYEVENTF_KEYDOWN, UIntPtr.Zero);
-        //Thread.Sleep(50);
-        // 松开V
-        keybd_event(VK_V, 0, KEYEVENTF_KEYUP, UIntPtr.Zero);
-        //Thread.Sleep(50);
-        // 松开Ctrl
-        keybd_event(VK_CONTROL, 0, KEYEVENTF_KEYUP, UIntPtr.Zero);
-        //Thread.Sleep(50);
-        // 模拟右箭头
-        //keybd_event(VK_RIGHT, 0, 0, 0);
-        //keybd_event(VK_RIGHT, 0, KEYEVENTF_KEYUP, 0);
-
+        SendCtrlAndOtherKey(VK_V);
     }
-    public static void SendCtrlAndC()
+
+    public static void SendCtrlAndF()
+    {
+        SendCtrlAndOtherKey(VK_F);
+    }
+
+    private static void SendCtrlAndOtherKey(byte otherKey)
     {
         // 按下Ctrl
         keybd_event(VK_CONTROL, 0, KEYEVENTF_KEYDOWN, UIntPtr.Zero);
-        // 按下C
-        keybd_event(VK_C, 0, KEYEVENTF_KEYDOWN, UIntPtr.Zero);
-
-        // 松开C
-        keybd_event(VK_C, 0, KEYEVENTF_KEYUP, UIntPtr.Zero);
+        //Thread.Sleep(50);
+        // 按下key
+        keybd_event(otherKey, 0, KEYEVENTF_KEYDOWN, UIntPtr.Zero);
+        //Thread.Sleep(50);
+        // 松开key
+        keybd_event(otherKey, 0, KEYEVENTF_KEYUP, UIntPtr.Zero);
+        //Thread.Sleep(50);
         // 松开Ctrl
         keybd_event(VK_CONTROL, 0, KEYEVENTF_KEYUP, UIntPtr.Zero);
+    }
+    public static void SendCtrlAndC()
+    {
+        SendCtrlAndOtherKey(VK_C);
     }
 }
